@@ -1,0 +1,32 @@
+.board {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.grid {
+    // background-color: aqua;
+    position: relative;
+    padding: 25px;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+}
+
+.wrap {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-image: url('../../assets/images/fon.webp');
+    background-clip: content-box;
+    z-index: -1;
+    filter: brightness(0.3);
+}
+
+.title {
+    margin: 0;
+    text-align: center;
+
+    
+}

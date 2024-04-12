@@ -11,7 +11,7 @@
     height: 90px;
 
     &:disabled {
-        background-color: $border-dark;
+        background-color: $base-color-yellow;
         color: $background;
         
         &:hover {
@@ -19,4 +19,10 @@
             cursor: not-allowed;
         }
     }
+}
+
+.wrap {
+    background-image: url(/src/assets/images/woodDark.avif);
+    padding: 10px;
+    border-radius: 5px;
 }

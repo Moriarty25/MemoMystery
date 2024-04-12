@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { Button } from '../Button';
 import styles from "./Menu.module.scss";
 
@@ -6,19 +7,21 @@ export const Menu = () => {
     <nav className={styles.menu}>
       <ul className={styles.list}>
         <li>
-          <a href={`/continue`}>
+          <Link to={`contacts/1`}>
             <Button content='Продолжить' disabled/>
-          </a>
+          </Link>
+            
+
         </li>
         <li>
-          <a href={`/new-game2`}>
+          <Link to={`/new-game`}>
             <Button content='Новая игра'/>
-          </a>
+          </Link>
         </li>
         <li>
-          <a href={`/settings`}>
+          <Link to={`/settings`}>
             <Button content='Настройки'/>
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>
