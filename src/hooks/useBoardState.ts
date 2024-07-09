@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export function useBoardState(currentCellId: string) {
   const [openedCells, setOpenedCells] = useState<string[]>([]);

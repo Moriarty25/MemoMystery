@@ -39,4 +39,6 @@ export function generateArray(cards: Array<string>, cardAmount: number) {
     return randomArray
 }
 
-
+function generateBoard() {
+    
+}

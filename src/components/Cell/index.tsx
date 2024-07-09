@@ -1,32 +1,24 @@
 import { FC, useState } from "react";
 import styles from "./Cell.module.scss";
 
-type TButtonProps = {
+type TCellProps = {
   src: string;
   title: string;
   id: string;
-  openCell: string | null;
+  openCell: null | {index: number, src: string};
   isMatch: 'match' | 'miss' | null;
-  onClick: (id: string) => void;
+  onClick: (src: string, index: number) => void;
+  index: number
 };
 
 
 
-export const Cell: FC<TButtonProps> = ({ src, title, id, onClick, openCell, isMatch}) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  function onFlippingHandler() {
-    console.log(id, 'this');
-    
-    setIsOpen(!isOpen)
-    
-    
-  }
+export const Cell: FC<TCellProps> = ({src, index, title, id, onClick, openCell, isMatch}) => {
   
   return (
-    <div  onClick={() => onClick(src)} className={`${styles.cell} ${styles.visible} ${isMatch ==='match' ? styles.match : isMatch === 'miss' ? styles.miss : ''}`}>
+    <div  onClick={() => onClick(src, index)} className={`${styles.cell} ${styles.visible} ${isMatch ==='match' ? styles.match : isMatch === 'miss' ? styles.miss : ''}`}>
       <div className={styles.cellInner}>
-        {openCell ? (
+        {index === openCell?.index ? (
           <img
             className={`${styles.img} ${styles.font}`}
             src={src}
