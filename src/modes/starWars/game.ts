@@ -23,22 +23,6 @@ export function generateArray(cards: Array<string>, cardAmount: number) {
             elementCounts[randomElement]++            
         }
     }
-
-    // while (generatedArray.length < cardAmount) {
-    //     const randomIndex = Math.floor(Math.random() * cards.length)
-    //     const randomElement = cards[randomIndex]
-        
-    //     if (elementCounts[randomElement] < 2) {
-    //         generatedArray.push(randomElement)
-    //         elementCounts[randomElement]++
-    //     }
-        
-    // }
-
     
     return randomArray
-}
-
-function generateBoard() {
-    
 }

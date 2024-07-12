@@ -18,7 +18,7 @@ export const Board = () => {
   const [isMatch, setIsMatch] = useState<null | 'match' | 'miss'>(null);
   const [isDisabled, setIsDisabled] = useState(false);
 
-  useEffect(()=> {
+  useEffect(() => {
     if (flippedCards.length === 2) {
       setIsDisabled(true)
       const [first, second] = flippedCards
@@ -26,6 +26,7 @@ export const Board = () => {
         setMatchedCards([...matchedCards, first, second])
         setFlippedCards([])
         setIsDisabled(false)
+        setIsMatch('match')
       } else {
         setTimeout(() => {
           const newCards = displayBoard.map((card, index) => {
@@ -37,10 +38,11 @@ export const Board = () => {
           setDisplayBoard(newCards)
           setFlippedCards([])
           setIsDisabled(false)
+          setIsMatch('miss')
         }, 1000)
       }
-    } 
-  }, [displayBoard, flippedCards, matchedCards ])
+    }
+  }, [displayBoard, flippedCards, matchedCards])
 
   function onStart() {
     // setDisplayBoard(generateArray(starWarsImages, 17)); 
@@ -50,8 +52,8 @@ export const Board = () => {
     setDisplayBoard(newArr)
   }
 
-  function onFlippingBoardHandler({ src, index, open }: TCell) {
-    if (isDisabled 
+  function onFlippingBoardHandler({ index, }: TCell) {
+    if (isDisabled
       || flippedCards.includes(index)
       || matchedCards.includes(index)
     ) return
@@ -64,48 +66,12 @@ export const Board = () => {
     })
     setDisplayBoard(newCards)
     setFlippedCards([...flippedCards, index])
-    // displayBoard[index].open = true
-    const currentCard = { src, index, open: true }
-    console.log(flippedCards, currentCard);
-    // if (true) {
-    //   displayBoard[index].open = true;
-    //   console.log(flippedCards.at(-1)?.src === currentCard.src);
 
-
-    // }
-
-    // if (flippedCards.length > 1) {
-    //   const newArr = displayBoard
-    //   newArr.filter((el) => { el.index === index })
-    //   console.log(newArr, displayBoard)
-
-    //   console.log(flippedCards);
-
-    // }
-
-
-
-
-
-    // if (openCell?.[0] && src === openCell?.[0].src) {
-    //   setIsMatch('match')
-
-    // } else {
-    //   setIsMatch('miss')
-    //   setOpenCell([{ src, index: index, open: false }])
-    // }
-    // if (openCell) {
-    //   const newArr = [openCell.slice(-1), {src, index, open: true}]
-    //   setOpenCell(newArr);
-    // } else {
-    //   setOpenCell([{src, index, open: true}])
-    // }
-    //     console.log(openCell);
   }
 
-  const cellsElements = displayBoard.map((cell, index) => {
+  const cellsElements = displayBoard.map((cell) => {
     const id = uuidv4();
-    return <Cell title={'title'} key={id} cell={cell} isMatch={isMatch} onClick={onFlippingBoardHandler} />;
+    return <Cell title={'title'} key={id} cell={cell} isDisabled={isDisabled} flippedCards={flippedCards} mathedCards={matchedCards} isMatch={isMatch} onClick={onFlippingBoardHandler} />;
   });
 
   return (
@@ -116,7 +82,7 @@ export const Board = () => {
         <div className={styles.wrap}></div>
         {cellsElements}
       </main>
-      <footer>Time: 1 Score: {matchedCards.length/2} Moves: </footer>
+      <footer>Time: 1 Score: {matchedCards.length / 2} Moves: </footer>
     </div>
   );
 };
