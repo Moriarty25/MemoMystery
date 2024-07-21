@@ -27,6 +27,27 @@
 .title {
     margin: 0;
     text-align: center;
+}
 
-    
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.restart {
+    position: absolute;
+    right: 60px;
+    cursor: pointer;
+}
+
+.pause {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+}
+
+.modal {
+    filter: blur(5px);
 }

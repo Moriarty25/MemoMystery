@@ -10,8 +10,6 @@ export const Menu = () => {
           <Link to={`contacts/1`}>
             <Button content='Продолжить' disabled/>
           </Link>
-            
-
         </li>
         <li>
           <Link to={`/new-game`}>

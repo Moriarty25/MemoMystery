@@ -4,6 +4,10 @@ import { generateArray } from "../../modes/starWars/game";
 import { Cell } from "../Cell";
 import styles from "./Board.module.scss";
 import { v4 as uuidv4 } from 'uuid';
+import useLocalStorage from '../../hooks/useLocalStorage';
+import { Modal } from '../Modal';
+import { Pause, PauseCircleFilledOutlined, RestartAlt } from '@mui/icons-material';
+import { IconButton, Tooltip } from '@mui/material';
 
 export type TCell = {
   index: number,
@@ -17,8 +21,18 @@ export const Board = () => {
   const [matchedCards, setMatchedCards] = useState<number[]>([]);
   const [isMatch, setIsMatch] = useState<null | 'match' | 'miss'>(null);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [mode, setMode] = useLocalStorage('mode', 'star_wars');
+  const [size, setSize] = useLocalStorage('size', 10);
+  const [activeModal, setActiveModal] = useState(false);
 
   useEffect(() => {
+    if (matchedCards.length === 2) {
+      console.log('u win');
+      setMode('pirates')
+      console.log(mode, size);
+      
+    } 
+
     if (flippedCards.length === 2) {
       setIsDisabled(true)
       const [first, second] = flippedCards
@@ -46,10 +60,22 @@ export const Board = () => {
 
   function onStart() {
     // setDisplayBoard(generateArray(starWarsImages, 17)); 
-    const newArr = generateArray(starWarsImages, 17).map((el, index) => {
+    console.log('live');
+    
+    const sizeBoard =  48;
+    const newArr = generateArray(starWarsImages, sizeBoard).map((el, index) => {
       return { src: el, index, open: false }
     })
     setDisplayBoard(newArr)
+  }
+
+  function onPause() {
+    console.log('pause');
+    setActiveModal(true)
+  }
+
+  function onCloseModal() {
+    setActiveModal(false)
   }
 
   function onFlippingBoardHandler({ index, }: TCell) {
@@ -75,8 +101,25 @@ export const Board = () => {
   });
 
   return (
-    <div className={styles.board}>
-      <h1 className={styles.title} onClick={onStart}>Memo Games</h1>
+    <>
+    <div className={`${styles.board} ${activeModal && styles.modal}`}>
+      <header className={styles.header}>
+        <h1 className={styles.title} onClick={onStart}>Memo Games</h1>
+        <div className={styles.restart} onClick={onStart}>
+        <Tooltip title="Restart">
+          <IconButton>
+            <RestartAlt fontSize='large' />
+          </IconButton>
+        </Tooltip>
+        </div>
+        <div onClick={onPause} className={styles.pause}>
+        <Tooltip title="Pause">
+          <IconButton>
+            <Pause fontSize='large' />
+          </IconButton>
+        </Tooltip>
+        </div>
+      </header>
 
       <main className={styles.grid}>
         <div className={styles.wrap}></div>
@@ -84,5 +127,8 @@ export const Board = () => {
       </main>
       <footer>Time: 1 Score: {matchedCards.length / 2} Moves: </footer>
     </div>
+   {activeModal && <Modal onClose={onCloseModal}/> }
+    </>
+    
   );
 };

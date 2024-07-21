@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { TCell } from "../Board";
 import styles from "./Cell.module.scss";
 
@@ -12,21 +12,11 @@ type TCellProps = {
   isDisabled: boolean;
 };
 
-
-
-export const Cell: FC<TCellProps> = ({title, onClick, cell, isDisabled, mathedCards, flippedCards}) => {
+export const Cell: FC<TCellProps> = ({title, onClick, cell, mathedCards, flippedCards}) => {
   
   const index = cell?.index
   const open = cell?.open
   const src = cell?.src
-
-  useEffect(() => {
-    console.log(isDisabled);
-    
-    if (isDisabled) {
-
-    }
-  },[isDisabled])
 
   function checkMatchingCard() {
     if (mathedCards.includes(index) || flippedCards.includes(index)) {
