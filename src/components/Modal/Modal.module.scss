@@ -45,3 +45,12 @@
   display: flex;
   justify-content: start;
 }
+
+.child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  font-size: 40px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

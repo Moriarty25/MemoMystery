@@ -1,11 +1,12 @@
-import { FC, MouseEvent, useEffect } from 'react';
+import { FC, MouseEvent, ReactElement, useEffect } from 'react';
 import styles from './Modal.module.scss';
 
 type TModalProps = {
     onClose: () => void;
+    children?: ReactElement
 }
 
-export const Modal: FC<TModalProps> = ({onClose}) => {
+export const Modal: FC<TModalProps> = ({onClose, children}) => {
     useEffect(() => {
         
         
@@ -30,7 +31,8 @@ export const Modal: FC<TModalProps> = ({onClose}) => {
             <div className={styles.background}>
                 <div className={styles.content} onClick={onBackground}>
                     <h3 className={styles.title}>Pause</h3>
-                    <div className={styles.menu}>
+                    {children ? <div className={styles.child}>{children}</div> : (
+                        <div className={styles.menu}>
                         <ul>
                             <li>
                                 <span>
@@ -45,6 +47,8 @@ export const Modal: FC<TModalProps> = ({onClose}) => {
                             </li>
                         </ul>
                     </div>
+                    )}
+                    
                 </div>  
             </div>
         </div>

@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { Modal } from '../Modal';
 import { Pause, RestartAlt } from '@mui/icons-material';
-import { IconButton, Tooltip } from '@mui/material';
+import { IconButton, Tooltip, dividerClasses } from '@mui/material';
 
 export type TCell = {
   index: number,
@@ -30,6 +30,10 @@ export const Board = () => {
 
 
   useEffect(() => {
+    if (getWinners()) {
+      setActiveModal(true)
+    }
+
     if (!isYourMove && flippedCards.length === 0) {
       const firstIndex = aiNextStep()
       setFlippedCards([...flippedCards, firstIndex])
@@ -142,7 +146,13 @@ export const Board = () => {
     })
     setDisplayBoard(newCards)
     setFlippedCards([...flippedCards, index])
+  }
 
+  function getWinners() {
+    const result = displayBoard.filter((card) => card.open)
+    if (result.length === displayBoard.length && displayBoard.length > 0) {
+      return userScore > aiScore ? <>You're winner</> : userScore === aiScore ? <>It's draw</> : <>You're lose</>
+    }
   }
 
   const cellsElements = displayBoard.map((cell) => {
@@ -177,8 +187,7 @@ export const Board = () => {
       </main>
       <footer>Time: 1 Score: {userScore +' : '+ aiScore} Moves: {isYourMove ? 'You' : 'AI'}</footer>
     </div>
-   {activeModal && <Modal onClose={onCloseModal}/> }
+    {activeModal && <Modal onClose={onCloseModal} children={getWinners()}/> }
     </>
-    
   );
 };
